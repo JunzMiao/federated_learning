@@ -22,12 +22,12 @@ import metric as M
 MODEL = "MLP" # "MLP" "GRU" "CNN"
 USE_FL = True # True False
 
-USER_RATIOS = [1, 1, 7] 
+USER_RATIOS = [1, 1] 
 # USER_RATIOS = [1 for _ in range(10)]
 NUM_USERS = len(USER_RATIOS)
 FRAC = 1
 
-EPOCH = 20
+EPOCH = 3 
 LOCAL_EP = 5
 LOCAL_BS = 32
 TEST_BS = 32
@@ -263,18 +263,18 @@ _, (lsf, msf), (luls, lums) = main_fed()
 xs = [i+ 1 for i in range(EPOCH)]
 luaccs = list(map(M.accs, lums))
 
-import matplotlib.pyplot as plt
-plt.figure()
-plt.title("loss")
-plt.plot(xs, lsf, label="test")
-M.plt_usr_records(xs, luls)
-plt.savefig("usrs_losses.png")
+# import matplotlib.pyplot as plt
+# plt.figure()
+# plt.title("loss")
+# plt.plot(xs, lsf, label="test")
+# M.plt_usr_records(xs, luls)
+# plt.savefig("usrs_losses.png")
 
-plt.figure()
-plt.title("acc")
-plt.plot(xs, M.accs(msf), label="test")
-M.plt_usr_records(xs, luaccs)
-plt.savefig("usrs_accs.png")
+# plt.figure()
+# plt.title("acc")
+# plt.plot(xs, M.accs(msf), label="test")
+# M.plt_usr_records(xs, luaccs)
+# plt.savefig("usrs_accs.png")
 
 
 

@@ -7,3 +7,7 @@ res/*
 *.tgz
 *.png
 *.txt
+# states/global.dat
+*.dat
+
+federated-learning/*

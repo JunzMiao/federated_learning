@@ -1,6 +1,5 @@
 import numpy as np
 import pandas as pd
-from sklearn.preprocessing import StandardScaler, MinMaxScaler, LabelEncoder
 import torch
 from torch.utils.data import Dataset, DataLoader
 from torch import nn
@@ -16,8 +15,8 @@ DEVICE = torch.device('cuda'if torch.cuda.is_available() else 'cpu')
 
 # train_df = pd.read_csv("../Intrusion-Detection-on-NSL-KDD/a.csv")
 # test_df = pd.read_csv("../Intrusion-Detection-on-NSL-KDD/b.csv")
-train_df = pd.read_csv("train-train.csv")
-test_df = pd.read_csv("train-test.csv")
+train_df = pd.read_csv("train-train-norm.csv")
+test_df = pd.read_csv("train-test-norm.csv")
 # train_df = pd.read_csv("./nslkdd-train-pro.csv")
 # test_df = pd.read_csv("./nslkdd-test-pro.csv")
 # test_df.attack_map = test_df.attack_map.map(lambda _: np.random.randint(0, 5))

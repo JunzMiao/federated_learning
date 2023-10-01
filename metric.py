@@ -109,49 +109,52 @@ def load_res(res_dir, has_usr_records=False):
     else:
         return (conf, losses, metrics)
 
+def plot_and_save(xs, ysm, ysf, title, save_path):
+    plt.figure()
+    plt.title(title)
+    plt.xlabel("epoch")
+    plt.plot(xs, ysm, label = "ML")
+    plt.plot(xs, ysf, label = "FL")
+    plt.legend()
+    plt.savefig(save_path)
 
-def plt_compare_figures(model):
-    def plot_and_save(xs, ysm, ysf, title, save_path):
-        plt.figure()
-        plt.title(title)
-        plt.xlabel("epoch")
-        plt.plot(xs, ysm, label = "ML")
-        plt.plot(xs, ysf, label = "FL")
-        plt.legend()
-        plt.savefig(save_path)
+
+def plt_compare_figures(model, model_fl=""):
+    if model_fl == "":
+        model_fl = model
 
     conf, lsm, msm = load_res(f"./res/ML/{model}")
-    conff, lsf, msf = load_res(f"./res/FL/{model}")
+    conff, lsf, msf = load_res(f"./res/FL/{model_fl}")
     xs = [i + 1 for i in range(len(lsm))]
 
     # comparison of loss
     plot_and_save(xs, lsm, lsf, 
         "loss comparison",
-        f"./imgs/{model}/comparison-loss-{model}.png"
+        f"./imgs/{model_fl}/comparison-loss-{model_fl}.png"
     )
 
     # comparison acc
     plot_and_save(xs, accs(msm), accs(msf),
         "accuray comparison", 
-        f"./imgs/{model}/comparison-acc-{model}.png"
+        f"./imgs/{model_fl}/comparison-acc-{model_fl}.png"
     )
 
     # comparison pr
     plot_and_save(xs, prs(msm), prs(msf),
         "precison comparison", 
-        f"./imgs/{model}/comparison-pr-{model}.png"
+        f"./imgs/{model_fl}/comparison-pr-{model_fl}.png"
     )
 
     # comparison dr
     plot_and_save(xs, drs(msm), drs(msf),
         "detection rate comparison", 
-        f"./imgs/{model}/comparison-dr-{model}.png"
+        f"./imgs/{model_fl}/comparison-dr-{model_fl}.png"
     )
 
     # comparison fpr
     plot_and_save(xs, fprs(msm), fprs(msf),
         "fpr comparison", 
-        f"./imgs/{model}/comparison-fpr-{model}.png"
+        f"./imgs/{model_fl}/comparison-fpr-{model_fl}.png"
     )
 
 def plt_usr_records(xs, urs):
